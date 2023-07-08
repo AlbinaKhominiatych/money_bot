@@ -2,7 +2,7 @@ import telebot
 import requests
 from telebot import types
 from bs4 import BeautifulSoup
-import  time
+from datetime import datetime
 
 response1 = requests.get("https://minfin.com.ua/ua/currency/usd/")
 soup = BeautifulSoup(response1.text, features = "html.parser")
@@ -31,7 +31,7 @@ def start(m, res=False):
     item2 = types.KeyboardButton("Курс Євро")
     item3 = types.KeyboardButton("Курс Злотих")
     markup.add(item1, item2, item3)
-    bot.send_message(m.chat.id, "Яку валюту хочете дізнатися на стан ?", reply_markup=markup)
+    bot.send_message(m.chat.id, "Яку валюту хочете дізнатися на стан {} року?".format(datetime.now().strftime("%d %B %Y")), reply_markup=markup)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
