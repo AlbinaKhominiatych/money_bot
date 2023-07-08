@@ -55,6 +55,8 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
+    markup = None
+
     if message.text.strip() == "Курс Долара":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         item1 = types.KeyboardButton("Купівля")
@@ -84,6 +86,48 @@ def handle_text(message):
 
         _, _, pln_values = get_currency_rates()
         answer = "Курс Злотих:\n\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}".format(pln_values[0], pln_values[1], pln_values[2])
+
+    elif message.text.strip() == "Продаж":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1 = types.KeyboardButton("Курс Долара")
+        item2 = types.KeyboardButton("Курс Євро")
+        item3 = types.KeyboardButton("Курс Злотих")
+        markup.add(item1, item2, item3)
+
+        usd_values, eur_values, pln_values = get_currency_rates()
+        answer = "Опція Продаж:\n\nДолара:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}\n\n" \
+                 "Євро:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}\n\n" \
+                 "Злотих:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}".format(usd_values[1], usd_values[3], usd_values[5],
+                                                                         eur_values[1], eur_values[3], eur_values[5],
+                                                                         pln_values[1], pln_values[3], pln_values[5])
+
+    elif message.text.strip() == "Купівля":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1 = types.KeyboardButton("Курс Долара")
+        item2 = types.KeyboardButton("Курс Євро")
+        item3 = types.KeyboardButton("Курс Злотих")
+        markup.add(item1, item2, item3)
+
+        usd_values, eur_values, pln_values = get_currency_rates()
+        answer = "Опція Купівля:\n\nДолара:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}\n\n" \
+                 "Євро:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}\n\n" \
+                 "Злотих:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}".format(usd_values[2], usd_values[4], usd_values[6],
+                                                                         eur_values[2], eur_values[4], eur_values[6],
+                                                                         pln_values[2], pln_values[4], pln_values[6])
+
+    elif message.text.strip() == "Курс НБУ":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1 = types.KeyboardButton("Курс Долара")
+        item2 = types.KeyboardButton("Курс Євро")
+        item3 = types.KeyboardButton("Курс Злотих")
+        markup.add(item1, item2, item3)
+
+        usd_values, eur_values, pln_values = get_currency_rates()
+        answer = "Опція Курс НБУ:\n\nДолара:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}\n\n" \
+                 "Євро:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}\n\n" \
+                 "Злотих:\nКупівля: {}\nПродаж: {}\nКурс НБУ: {}".format(usd_values[7], usd_values[8], usd_values[9],
+                                                                         eur_values[7], eur_values[8], eur_values[9],
+                                                                         pln_values[7], pln_values[8], pln_values[9])
 
     else:
         answer = "Я не розумію вашого запиту."
