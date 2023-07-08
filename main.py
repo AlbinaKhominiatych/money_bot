@@ -9,15 +9,19 @@ bot = telebot.TeleBot("6272635544:AAHfs2PbPaHHBWuEVdDzrA7r-7U_fnGG3h4")
 def get_currency_rates():
     response1 = requests.get("https://minfin.com.ua/ua/currency/usd/")
     soup1 = BeautifulSoup(response1.text, features="html.parser")
-    usd_rate = soup1.find('div', {'class': "sc-1x32wa2-9 bKmKjX"}).text.strip()
+    for usd_rate in soup1.find('div', {'class': "sc-1x32wa2-9 bKmKjX"}):
+        usd_rate.extract()
+
 
     response2 = requests.get("https://minfin.com.ua/ua/currency/eur/")
     soup2 = BeautifulSoup(response2.text, features="html.parser")
-    eur_rate = soup2.find('div', {'class': "sc-1x32wa2-9 bKmKjX"}).text.strip()
+    for eur_rate in soup2.find('div', {'class': "sc-1x32wa2-9 bKmKjX"}):
+        eur_rate.extract()
 
     response3 = requests.get("https://minfin.com.ua/ua/currency/pln/")
     soup3 = BeautifulSoup(response3.text, features="html.parser")
-    pln_rate = soup3.find('div', {'class': "sc-1x32wa2-9 bKmKjX"}).text.strip()
+    for pln_rate in soup3.find('div', {'class': "sc-1x32wa2-9 bKmKjX"}):
+        pln_rate.extract()
 
     return usd_rate, eur_rate, pln_rate
 
